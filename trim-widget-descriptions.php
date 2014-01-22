@@ -31,8 +31,8 @@ class Trim_Widget_Descriptions {
 
 	private static $description_options = array(
 		'normal' => 'No change (default)',
-		'trim' => 'Make them shorter',
-		'hide' => 'Hide descriptions'
+		'trim'	 => 'Make them shorter',
+		'hide'   => 'Hide descriptions'
 	);
 
 	const USER_META_KEY = 'twd_descriptions';
@@ -51,11 +51,14 @@ class Trim_Widget_Descriptions {
 			update_user_meta( $user_id, self::USER_META_KEY, $_POST['twd_descriptions'] );
 			self::redirect( admin_url('widgets.php?message=0') );
 		}
+		
 		$twd_descriptions = get_user_meta( $user_id, self::USER_META_KEY, true );
-	?>
+		
+		?>
+
 		<form method="post" action="">
 			<fieldset>
-				<input type="hidden" name="twd_noncename" value="<?php echo wp_create_nonce( TWD_PLUGIN ); ?>" />
+				<?php wp_nonce_field( TWD_PLUGIN, 'twd_noncename' ); ?>
 				<p class="description">
 					<label for="twd_descriptions">Widget Descriptions:</label>
 					<select name="twd_descriptions" id="twd_descriptions" class="wide">
@@ -69,13 +72,15 @@ class Trim_Widget_Descriptions {
 				</p>
 			</fieldset>
 		</form>
-	<?php
+
+		<?php
 	}
 
 	public static function trim_descriptions(){
 		global $wp_registered_widgets;
 
 		$twd_descriptions = get_user_meta( get_current_user_id(), self::USER_META_KEY, true );
+
 		if( $twd_descriptions == 'normal' || $twd_descriptions == '' )
 			return;
 
