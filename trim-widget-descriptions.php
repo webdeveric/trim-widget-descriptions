@@ -1,6 +1,7 @@
 <?php
 /*
 Plugin Name: Trim Widget Descriptions
+Plugin Group: WordPress Admin
 Description: Limit the length of the description under each widget on the the <a href="widgets.php">widgets</a> page.
 Author: Eric King
 Version: 0.2.2
